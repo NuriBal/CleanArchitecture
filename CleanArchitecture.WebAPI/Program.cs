@@ -1,6 +1,8 @@
 using CleanArchitecture.Application.Behaviors;
 using CleanArchitecture.Application.Services;
+using CleanArchitecture.Domain.Repositories;
 using CleanArchitecture.Persistance.Context;
+using CleanArchitecture.Persistance.Repository;
 using CleanArchitecture.Persistance.Services;
 using CleanArchitecture.WebAPI.Middleware;
 using FluentValidation;
@@ -12,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICarService, CarService>();
 
 builder.Services.AddTransient<ExceptionMiddleware>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
 
 builder.Services.AddAutoMapper(cfg => 
 { 

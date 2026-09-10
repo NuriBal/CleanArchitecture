@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Repositories;
+﻿using CleanArchitecture.Application.Repositories;
 using CleanArchitecture.Persistance.Context;
 using System.Collections.Concurrent;
 

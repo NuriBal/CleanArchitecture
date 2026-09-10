@@ -1,10 +1,11 @@
-﻿using CleanArchitecture.Application.Services;
+﻿using CleanArchitecture.Application.Models;
+using CleanArchitecture.Application.Services;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
 
 namespace CleanArchitecture.Application.Features.CarFeatures.Queries.GetAllCar
 {
-    public sealed class GetAllCarQueryHandle : IRequestHandler<GetAllCarQuery, IList<Car>>
+    public sealed class GetAllCarQueryHandle : IRequestHandler<GetAllCarQuery, PaginatedResult<Car>>
     {
         private readonly ICarService _carService;
 
@@ -13,9 +14,9 @@ namespace CleanArchitecture.Application.Features.CarFeatures.Queries.GetAllCar
             _carService = carService;
         }
 
-        public async Task<IList<Car>> Handle(GetAllCarQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<Car>> Handle(GetAllCarQuery request, CancellationToken cancellationToken)
         {
-            IList<Car> cars = await _carService.GetAllAsync(request, cancellationToken);
+            PaginatedResult<Car> cars = await _carService.GetAllAsync(request, cancellationToken);
             return cars;
         }
     }

@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Application.Features.CarFeatures.Commands.CreateCar;
 using CleanArchitecture.Application.Features.CarFeatures.Queries.GetAllCar;
+using CleanArchitecture.Application.Models;
+using CleanArchitecture.Application.Repositories;
 using CleanArchitecture.Application.Services;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Repositories;
 
 namespace CleanArchitecture.Persistance.Services;
 
@@ -30,9 +31,21 @@ public sealed class CarService : ICarService
         await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IList<Car>> GetAllAsync(GetAllCarQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedResult<Car>> GetAllAsync(GetAllCarQuery request, CancellationToken cancellationToken)
     {
-        IList<Car> cars = await _carRepository.GetAllAsync(cancellationToken);
-        return cars;
+        //PaginatedResult<Car> cars = await _carRepository.GetAllAsync(cancellationToken);
+        //return cars;
+
+        var searchFilter = string.IsNullOrWhiteSpace(request.Search);
+
+        return await _carRepository.GetWhereAsync(
+            method: car => searchFilter ||
+                           car.Name.Trim().ToLower().Contains(request.Search!.Trim().ToLower()) ||
+                           car.Model.Trim().ToLower().Contains(request.Search!.Trim().ToLower()),
+            pageNumber: request.PageNumber,
+            pageSize: request.PageSize,
+            tracking: false,
+            cancellationToken: cancellationToken
+        );
     }
 }

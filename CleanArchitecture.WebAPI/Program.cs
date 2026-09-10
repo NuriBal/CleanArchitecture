@@ -1,6 +1,6 @@
 using CleanArchitecture.Application.Behaviors;
+using CleanArchitecture.Application.Repositories;
 using CleanArchitecture.Application.Services;
-using CleanArchitecture.Domain.Repositories;
 using CleanArchitecture.Persistance.Context;
 using CleanArchitecture.Persistance.Repository;
 using CleanArchitecture.Persistance.Services;

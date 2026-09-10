@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Repositories;
+﻿using CleanArchitecture.Application.Repositories;
+using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Persistance.Context;
 
 namespace CleanArchitecture.Persistance.Repository;

@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Repositories;
+﻿namespace CleanArchitecture.Application.Repositories;
 
 public interface IUnitOfWork : IAsyncDisposable
 {

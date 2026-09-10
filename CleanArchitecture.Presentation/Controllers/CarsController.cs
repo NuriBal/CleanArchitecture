@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.Features.CarFeatures.Commands.CreateCar;
 using CleanArchitecture.Application.Features.CarFeatures.Queries.GetAllCar;
+using CleanArchitecture.Application.Models;
 using CleanArchitecture.Domain.Dtos;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Presentation.Abstraction;
@@ -22,7 +23,7 @@ public sealed class CarsController : ApiController
     [HttpPost("[action]")]
     public async Task<IActionResult> GetAll(GetAllCarQuery request, CancellationToken cancellationToken)
     {
-        IList<Car> response = await _mediator.Send(request, cancellationToken);
+        PaginatedResult<Car> response = await _mediator.Send(request, cancellationToken);
         return Ok(response);
     }
 }

@@ -10,11 +10,13 @@ public sealed class AuthService : IAuthService
 {
     private readonly UserManager<User> _userManager;
     private readonly IMapper _mapper;
+    private readonly IMailService _mailService;
 
-    public AuthService(UserManager<User> userManager, IMapper mapper)
+    public AuthService(UserManager<User> userManager, IMapper mapper, IMailService mailService)
     {
         _userManager = userManager;
         _mapper = mapper;
+        _mailService = mailService;
     }
 
     public async Task RegisterAsync(RegisterCommand request)
@@ -23,7 +25,9 @@ public sealed class AuthService : IAuthService
         IdentityResult result = await _userManager.CreateAsync(user, request.Password);
         if (!result.Succeeded)
         {
-            throw new Exception(result.Errors.First().Description); 
+            throw new Exception(result.Errors.First().Description);
         }
+
+        //await _mailService.SendEmailAsync(request.EMail, "Kullanıcı kaydı", "Sistemimize hoş geldiniz.", true, default);
     }
 }

@@ -41,4 +41,10 @@ public class Repository<T>(DbContext context) : IRepository<T> where T : class
 
     public void Delete(T entity)
         => _dbSet.Remove(entity);
+
+    public IQueryable<T> GetQuery(bool tracking = true)
+        => tracking ? _dbSet.AsQueryable() : _dbSet.AsNoTracking();
+
+    public IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true)
+        => GetQuery(tracking).Where(method);
 }

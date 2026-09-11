@@ -11,4 +11,6 @@ public interface IRepository<T> where T : class
     Task AddAsync(T entity, CancellationToken cancellationToken = default);
     void Update(T entity);
     void Delete(T entity);
+    IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true);
+    IQueryable<T> GetQuery(bool tracking = true);
 }
